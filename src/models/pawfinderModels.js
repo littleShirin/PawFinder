@@ -6,11 +6,10 @@ const userSchema = new Schema({
     googleId: {
         type: String
     },
-    savedPets: [SavedPets.schema]
+    savedPets: { type: mongoose.Schema.Types.ObjectId, ref: 'SavedPets' },
    
 });
 
 const User = mongoose.model('user', userSchema)
-
 
 module.exports = User; 
