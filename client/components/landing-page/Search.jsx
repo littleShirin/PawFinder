@@ -11,7 +11,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import axios from 'axios'; 
+import { __Btn } from '../../styles/__Utils';
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -37,7 +42,11 @@ export default function DialogSelect() {
   const [type, setType] = React.useState('');
   const [gender, setGender] = React.useState('');
   const [size, setSize] = React.useState('');
+<<<<<<< HEAD
   const [zipcode, setZipCode] = React.useState('');
+=======
+  const [location, setLocation] = React.useState(''); 
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
 
   const handleAge = (event) => {
     setAge((event.target.value) || '');
@@ -51,9 +60,15 @@ export default function DialogSelect() {
   const handleSize = (event) => {
     setSize((event.target.value) || '');
   };
+<<<<<<< HEAD
 
   const handleZipCode = (event) => {
     setZipCode(event.target.value || '');
+=======
+  
+  const handleLocation = (event) => {
+    setLocation(event.target.value || '');
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
   };
 
   const handleClickOpen = () => {
@@ -64,6 +79,7 @@ export default function DialogSelect() {
     setOpen(false);
   };
 
+<<<<<<< HEAD
 
   // const handleOk = () => {
   //   const currState = {
@@ -81,6 +97,26 @@ export default function DialogSelect() {
   // };
 
 
+=======
+  
+    const handleOk = () => {
+    
+      axios.post('http://localhost:3000/feed',{
+        "age": age,
+        "type": type,
+        "gender": gender, 
+        "size": size, 
+        "location": location  
+      })
+        .then(res => {
+        console.log(res); 
+        console.log(res.data); 
+          let result = res.data.map((animal) => <PetCard data={animal} />)
+      })
+    };
+ 
+  
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
 
   //onClick we want to send a fetch request to backend, sending the current state in body 
   //also redirect user to new component with card info rendered (render the PetCard component)
@@ -89,12 +125,15 @@ export default function DialogSelect() {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>FIND A PAW</Button>
+      <__Btn secondary onClick={handleClickOpen}>Adopt a Paw 🐶</__Btn>
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleCancel}>
-        <DialogTitle>Find a paw</DialogTitle>
+        <DialogTitle>Adopt a Paw 🐶</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="demo-dialog-native">Type</InputLabel>
               <Select
@@ -150,7 +189,12 @@ export default function DialogSelect() {
                 <MenuItem value={"Male"}>Male</MenuItem>
               </Select>
             </FormControl>
+<<<<<<< HEAD
             <TextField id="standard-search" label="Zipcode" type="search" onChange={handleZipCode} value={zipcode} />
+=======
+            <TextField id="standard-search" required label="Zip" type="search" onChange={handleLocation} value={location} helperText="Required"/>
+           
+>>>>>>> 7e8fe0243d28853aacf9e5eab55afa653117b091
           </form>
         </DialogContent>
         <DialogActions>
