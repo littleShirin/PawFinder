@@ -10,6 +10,8 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
 }));
 
 export default function DialogSelect() {
@@ -27,30 +35,66 @@ export default function DialogSelect() {
   const [open, setOpen] = React.useState(false);
   const [age, setAge] = React.useState('');
   const [type, setType] = React.useState('');
+  const [gender, setGender] = React.useState('');
+  const [size, setSize] = React.useState('');
+  const [zipcode, setZipCode] = React.useState('');
 
-
-  const handleChange = (event) => {
+  const handleAge = (event) => {
     setAge((event.target.value) || '');
   };
   const handleType = (event) => {
     setType((event.target.value) || '');
+  };
+  const handleGender = (event) => {
+    setGender((event.target.value) || '');
+  };
+  const handleSize = (event) => {
+    setSize((event.target.value) || '');
+  };
+
+  const handleZipCode = (event) => {
+    setZipCode(event.target.value || '');
   };
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
   };
+
+
+  // const handleOk = () => {
+  //   const currState = {
+  //     age: age,
+  //     type: type,
+  //     gender: gender, 
+  //     size: size, 
+  //     postcode: zipcode
+  //   }
+  //   axios.post('/api/feed', {currState})
+  //     .then(res => {
+  //       console.log(res); 
+  //     console.log(res.data); 
+  //   })
+  // };
+
+
+
+  //onClick we want to send a fetch request to backend, sending the current state in body 
+  //also redirect user to new component with card info rendered (render the PetCard component)
+
+
 
   return (
     <div>
       <Button onClick={handleClickOpen}>FIND A PAW</Button>
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleCancel}>
         <DialogTitle>Find a paw</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
+
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="demo-dialog-native">Type</InputLabel>
               <Select
@@ -70,7 +114,7 @@ export default function DialogSelect() {
                 labelId="demo-dialog-select-label"
                 id="demo-dialog-select"
                 value={age}
-                onChange={handleChange}
+                onChange={handleAge}
                 input={<Input />}
               >
                 <MenuItem value={"Baby"}>Baby</MenuItem>
@@ -79,13 +123,41 @@ export default function DialogSelect() {
                 <MenuItem value={"Senior"}>Senior</MenuItem>
               </Select>
             </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-dialog-select-label">Size</InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={size}
+                onChange={handleSize}
+                input={<Input />}
+              >
+                <MenuItem value={"Small"}>Small</MenuItem>
+                <MenuItem value={"Medium"}>Medium</MenuItem>
+                <MenuItem value={"Large"}>Large</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-dialog-select-label">Gender</InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={gender}
+                onChange={handleGender}
+                input={<Input />}
+              >
+                <MenuItem value={"Female"}>Female</MenuItem>
+                <MenuItem value={"Male"}>Male</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField id="standard-search" label="Zipcode" type="search" onChange={handleZipCode} value={zipcode} />
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleCancel} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleOk} color="primary">
             Ok
           </Button>
         </DialogActions>
